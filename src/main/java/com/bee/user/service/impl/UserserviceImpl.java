@@ -94,6 +94,9 @@ public class UserserviceImpl implements IUserService {
 	@Override
 	public String login(String username, String password, Integer role, HttpSession session) {
 		// 检查用户名是否正确
+		if(StringUtils.isEmpty(username)){
+			return "用户名不能为空";
+		}
 		MallUser usertemp = userMapper.selectUserByUsername(username);
 		if (null == usertemp) {
 			// 该用户不存在

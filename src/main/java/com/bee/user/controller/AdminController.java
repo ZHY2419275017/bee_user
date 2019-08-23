@@ -44,13 +44,13 @@ public class AdminController {
 	 * @return MallUser  null
 	 */
 	@GetMapping(value="/getInfo")
-	public MallUser getUserInfo(){
+	public MallUser getUserInfo(HttpSession session){
 		logger.info("管理员getInfo被访问");
-		// 获取session
+		/*// 获取session
 		ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder
 				.getRequestAttributes();
 		HttpServletRequest request = servletRequestAttributes.getRequest();
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession();*/
 		System.out.println("getInfo时的session:"+session.getId());
 		MallUser currentUser = (MallUser)session.getAttribute("user");
 		System.out.println("currentUser:"+currentUser);

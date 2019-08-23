@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bee.user.mapper.MallCommentMapper">
+  <resultMap id="BaseResultMap" type="com.bee.user.pojo.MallComment">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="com_user_id" jdbcType="INTEGER" property="comUserId" />
+    <result column="com_pro_id" jdbcType="INTEGER" property="comProId" />
+    <result column="com_title" jdbcType="VARCHAR" property="comTitle" />
+    <result column="com_content" jdbcType="VARCHAR" property="comContent" />
+    <result column="com_time" jdbcType="TIMESTAMP" property="comTime" />
+    <result column="com_score" jdbcType="INTEGER" property="comScore" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mall_comment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bee.user.pojo.MallComment">
+    insert into mall_comment (id, com_user_id, com_pro_id, 
+      com_title, com_content, com_time, 
+      com_score)
+    values (#{id,jdbcType=INTEGER}, #{comUserId,jdbcType=INTEGER}, #{comProId,jdbcType=INTEGER}, 
+      #{comTitle,jdbcType=VARCHAR}, #{comContent,jdbcType=VARCHAR}, #{comTime,jdbcType=TIMESTAMP}, 
+      #{comScore,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.bee.user.pojo.MallComment">
+    update mall_comment
+    set com_user_id = #{comUserId,jdbcType=INTEGER},
+      com_pro_id = #{comProId,jdbcType=INTEGER},
+      com_title = #{comTitle,jdbcType=VARCHAR},
+      com_content = #{comContent,jdbcType=VARCHAR},
+      com_time = #{comTime,jdbcType=TIMESTAMP},
+      com_score = #{comScore,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, com_user_id, com_pro_id, com_title, com_content, com_time, com_score
+    from mall_comment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, com_user_id, com_pro_id, com_title, com_content, com_time, com_score
+    from mall_comment
+  </select>
+</mapper>

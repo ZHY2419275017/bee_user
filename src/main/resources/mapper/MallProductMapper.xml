@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bee.user.mapper.MallProductMapper">
+  <resultMap id="BaseResultMap" type="com.bee.user.pojo.MallProduct">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="subtitle" jdbcType="VARCHAR" property="subtitle" />
+    <result column="main_image" jdbcType="VARCHAR" property="mainImage" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="stock" jdbcType="INTEGER" property="stock" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="detail" jdbcType="LONGVARCHAR" property="detail" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mall_product
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bee.user.pojo.MallProduct">
+    insert into mall_product (id, category_id, name, 
+      subtitle, main_image, price, 
+      stock, status, create_time, 
+      update_time, detail)
+    values (#{id,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{subtitle,jdbcType=VARCHAR}, #{mainImage,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
+      #{stock,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{detail,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.bee.user.pojo.MallProduct">
+    update mall_product
+    set category_id = #{categoryId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      subtitle = #{subtitle,jdbcType=VARCHAR},
+      main_image = #{mainImage,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      stock = #{stock,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      detail = #{detail,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, category_id, name, subtitle, main_image, price, stock, status, create_time, 
+    update_time, detail
+    from mall_product
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, category_id, name, subtitle, main_image, price, stock, status, create_time, 
+    update_time, detail
+    from mall_product
+  </select>
+</mapper>

@@ -1,5 +1,7 @@
 package com.bee.user.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -60,5 +63,16 @@ public class AdminController {
 		return userService.getUserInfo(currentUser.getId());
 	}
 	
+	@GetMapping(value="/selectAllUser")
+	public List<MallUser> selectAllUser(@RequestParam(value="pageNum",defaultValue="1") Integer pageNum,@RequestParam(value="pageSize",defaultValue="5")Integer pageSize){		
+		logger.info("管理员查询所有用户方法被访问");
+		return userService.selectAll();		
+	}
+	
+	@GetMapping(value="/deleteByUserId")
+	public String deleteUser(Integer userId){
+		logger.info("管理员删除用户方法执行");
+		return userService.deleteUser(userId);//底层只是修改了用户的角色
+	}
 
 }

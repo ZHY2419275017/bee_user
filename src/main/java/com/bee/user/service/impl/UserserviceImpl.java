@@ -1,6 +1,7 @@
 package com.bee.user.service.impl;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import javax.servlet.http.HttpSession;
@@ -13,6 +14,7 @@ import com.bee.user.pojo.MallUser;
 import com.bee.user.service.IUserService;
 import com.bee.user.util.MD5Util;
 import com.bee.user.util.SendSmsUtil;
+
 
 @Service
 public class UserserviceImpl implements IUserService {
@@ -212,6 +214,19 @@ public class UserserviceImpl implements IUserService {
 		//把密码置空
 		user.setPassword(null);
 		return user;
+	}
+
+	@Override
+	public List<MallUser> selectAll() {
+		List<MallUser> userList = userMapper.selectAll();
+		return userList;
+		
+	}
+
+	@Override
+	public String deleteUser(Integer userId) {
+		int rowcount = userMapper.updateUserRole(userId, 3);//3表示已经删除的用户
+		return (rowcount>0?"success":"error");
 	}
 
 }

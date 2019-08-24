@@ -31,5 +31,5 @@ public interface MallUserMapper {
     
     int checkEmailByUserId(@Param("email") String email,@Param("userId") Integer userId);
 
-	
+	int updateUserRole(@Param("userId") Integer userId,@Param("role") Integer role);
 }

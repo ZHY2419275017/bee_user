@@ -1,5 +1,7 @@
 package com.bee.user.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import com.bee.user.pojo.MallUser;
@@ -31,7 +33,10 @@ public interface IUserService {
 	String updateInfo(MallUser mallUser,HttpSession session);
 	//获取用户的登录信息
 	MallUser getUserInfo(Integer id);
+		
+	List<MallUser> selectAll();
 	
+	String deleteUser(Integer userId);
 	
 	
 

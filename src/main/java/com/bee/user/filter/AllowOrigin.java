@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AllowOrigin implements Filter {
 	
-	private final List<String> allowedOrigins = Arrays.asList("http://192.168.0.70:8080","http://localhost:8080");// 允许跨域的地址
+	private final List<String> allowedOrigins = Arrays.asList("http://192.168.0.70:8080","http://localhost:8080","http://101.37.79.105");// 允许跨域的地址
 	
 
 	
@@ -36,6 +36,7 @@ public class AllowOrigin implements Filter {
 		HttpServletRequest request = (HttpServletRequest) servletRequest;
 		String origin = request.getHeader("Origin");
 		response.setHeader("Access-Control-Allow-Origin",allowedOrigins.contains(origin)? origin : "");
+		//response.setHeader("Access-Control-Allow-Origin","http://101.37.79.105");
 		response.setHeader("Access-Control-Allow-Methods", "POST,GET,PUT,DELETE");
 		// 是否允许浏览器携带用户身份信息（cookie）
         response.setHeader("Access-Control-Allow-Credentials","true");

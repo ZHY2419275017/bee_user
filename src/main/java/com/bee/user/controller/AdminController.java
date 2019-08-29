@@ -9,7 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +20,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.bee.user.pojo.MallUser;
 import com.bee.user.service.IUserService;
-
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+@CrossOrigin
 @Controller
 @RestController
 @RequestMapping(value="/admin")
@@ -30,7 +34,7 @@ public class AdminController {
 	@Autowired
 	private IUserService userService;
 	
-	@RequestMapping("/login")
+	@GetMapping("/login")
 	public String login(String username,String password){
 		logger.info("管理员login被访问");
 		//获取session		
@@ -64,9 +68,12 @@ public class AdminController {
 	}
 	
 	@GetMapping(value="/selectAllUser")
-	public List<MallUser> selectAllUser(@RequestParam(value="pageNum",defaultValue="1") Integer pageNum,@RequestParam(value="pageSize",defaultValue="5")Integer pageSize){		
+	public PageInfo selectAllUser(@RequestParam(value="pageNum",defaultValue="1") Integer pageNum,@RequestParam(value="pageSize",defaultValue="5")Integer pageSize){		
 		logger.info("管理员查询所有用户方法被访问");
-		return userService.selectAll();		
+		PageHelper.startPage(pageNum,pageSize);
+		List<MallUser> userList =  userService.selectAll();	
+		PageInfo pageInfo = new PageInfo(userList);
+		return pageInfo;
 	}
 	
 	@GetMapping(value="/deleteByUserId")
@@ -74,5 +81,16 @@ public class AdminController {
 		logger.info("管理员删除用户方法执行");
 		return userService.deleteUser(userId);//底层只是修改了用户的角色
 	}
-
+	
+    @GetMapping(value="/selectUserByUserId")
+	public MallUser selectUserByUserId(Integer userId){
+		logger.info("管理员通过用户id查找用户的方法执行");
+		return userService.getUserInfo(userId);		
+	}
+    
+    @PutMapping(value="/updateUser")
+    public String updateUser(MallUser mallUser){
+    	return userService.updateUser(mallUser);
+    }
+    
 }

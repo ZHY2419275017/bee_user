@@ -60,7 +60,7 @@ public class UserserviceImpl implements IUserService {
 		} else {
 			return "success";
 		}
-	}
+	} 
 
 	@Override
 	public String sendCode(String phone, HttpSession session) {
@@ -227,6 +227,23 @@ public class UserserviceImpl implements IUserService {
 	public String deleteUser(Integer userId) {
 		int rowcount = userMapper.updateUserRole(userId, 3);//3表示已经删除的用户
 		return (rowcount>0?"success":"error");
+	}
+
+	@Override
+	public String updateUser(MallUser mallUser) {
+		//检查email和数据库中其他邮箱是否重复
+		int count = userMapper.checkEmailByUserId(mallUser.getEmail(), mallUser.getId());
+		if(count>0){
+			//说明有重复的邮箱
+			return "error邮箱已存在，换个邮箱";
+		}
+		//更新个人信息
+		int updateResult = userMapper.updateByPrimaryKeySelective(mallUser);
+		if(updateResult>0){
+			return "success";			
+		}	
+		//更新失败
+		return "error";
 	}
 
 }

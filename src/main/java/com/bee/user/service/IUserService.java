@@ -37,6 +37,8 @@ public interface IUserService {
 	List<MallUser> selectAll();
 	
 	String deleteUser(Integer userId);
+	//管理员修改用户信息的方法	
+	String updateUser(MallUser mallUser);
 	
 	
 

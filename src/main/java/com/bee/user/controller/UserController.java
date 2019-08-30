@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.bee.user.mapper.MallUserMapper;
 import com.bee.user.pojo.MallUser;
 import com.bee.user.service.IUserService;
 import com.bee.user.util.RandomValidateCodeUtil;
@@ -28,6 +29,8 @@ public class UserController {
 
 	@Autowired
 	private IUserService userService;
+	@Autowired
+	private MallUserMapper userMapper;
 	
 	private final static Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -248,6 +251,11 @@ public class UserController {
         	 logger.error("验证码校验失败", e);
             return "error";
         }
+    }
+    
+    @GetMapping(value="/selectUserById")
+    public MallUser selectUserById(Integer userId){
+    	return userMapper.selectByPrimaryKey(userId);
     }
 	
 	

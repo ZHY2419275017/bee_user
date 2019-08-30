@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AllowOrigin implements Filter {
 	
-	private final List<String> allowedOrigins = Arrays.asList("http://192.168.0.70:8080","http://localhost:8080","http://101.37.79.105");// 允许跨域的地址
+	private final List<String> allowedOrigins = Arrays.asList("http://192.168.0.23:8888","http://192.168.0.70:8080","http://localhost:8080","http://101.37.79.105");// 允许跨域的地址
 	
 
 	
